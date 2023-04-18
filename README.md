@@ -25,7 +25,22 @@ class ExApplication: Application() {
         activityLifecycle.applicationStateBackground {
             // enter background
         }
-    }   
+    }
+
+    companion object {
+        private var instance: ExApplication? = null
+        
+        // Add listener manually to activity other than top activity
+        fun setAppStateListener(activity: Activity) {
+            if (activity is AppStateListener) {
+                instance?.activityLifecycle?.setAppStateListener(activity)
+            }
+        }
+
+        fun getCurrentActivity(): Activity? {
+            return instance?.activityLifecycle?.currentTopActivity
+        }
+    }
 
 ```
 
